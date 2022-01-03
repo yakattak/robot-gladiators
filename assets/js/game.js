@@ -185,7 +185,7 @@ for (var i = 0; i < enemyInfo.length; i++) {
       
         // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
         window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
-        debugger;
+       // debugger;
     
         // pick new enemy to fight based on the index of the enemy.names array
         var pickedEnemyObj = enemyInfo[i];
@@ -226,12 +226,31 @@ for (var i = 0; i < enemyInfo.length; i++) {
 var endGame = function() {
   window.alert("The game has now ended. Let's see how you did...");
   //if player is alive player wins
+
+  //check for highscore
+  var highScore = localStorage.getItem("highscore");
+  if(highScore === null) {
+    highScore = 0;
+  }
+
+  if (playerInfo.money > highScore) {
+    localStorage.setItem("highscore", playerInfo.money);
+    localStorage.setItem("name", playerInfo.name);
+    
+    alert(playerInfo.name + " now has the high score of " + playerInfo.money);
+  } else {
+    alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
+  }
+
+  
+
   if (playerInfo.health > 0 ) {
     window.alert("Great job, you've survived the game! You now have a score of " +playerInfo.money + ".");
   } else {
     window.alert("You've lost your robot in battle.");
-  }
+  } 
 
+  //ask player if want to paly again
   var playAgainConfirm = window.confirm("Would you like to play again?");
 
   if (playAgainConfirm) {
